@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+ <div class="container">
+    <h1>Products</h1>
+   
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date_add_product</th>
+                <th>Name_product</th>
+                <th>Count_reviews</th>
+                <th>Average_rating</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.dateAddProduct ? product.dateAddProduct|date('Y-m-d H:i:s') : '' }}</td>
+                <td><a href="{{ path('product_show', {'id': product.id}) }}">{{ product.nameProduct }}</a></td>
+                <td>{{ product.reviews|length }}</td>
+                <td>{{product.getAverageValue}}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if app.user %}
+        <a href="{{ path('product_new') }}">Create new</a>
+    {% endif %}
+    </div>
+{% endblock %}

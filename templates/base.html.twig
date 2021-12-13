@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+       <div class="container"
+            <header >
+                {% if app.user %}
+                    Hello, {{ app.user.name }} <a href="{{ path('app_logout') }}" class="btn btn-outline-primary mx-2" >Logout</a>
+                {% else %}
+                    <a class="btn btn-outline-primary me-2" href="/login">Login</a>
+                    <a class="btn btn-primary" href="/register">Sign-up</a>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-primary" href="/admin">Admin panel</a>
+                {% endif %}
+            </header>
+        </div>
+        {% block body %}{% endblock %}
+    </body>
+</html>
+

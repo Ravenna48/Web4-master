@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+ <div class="container">
+    <h1>Product</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Date_add_product</th>
+                <td>{{ product.dateAddProduct ? product.dateAddProduct|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Name_product</th>
+                <td>{{ product.nameProduct }}</td>
+            </tr>
+            <tr>
+                <th>Text_product</th>
+                <td>{{ product.textProduct }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_index') }}" class="btn btn-outline-primary mx-2" >Back</a>
+    {% if app.user %}
+        <h2>Напишите отзыв</h1>
+        {{ form_start(commentForm) }}
+        {{ form_end(commentForm) }}
+    {% endif %}
+    <h1>Отзывы</h1>
+    <div class="form-group">
+    {% for review in reviews %}
+            <div class=" border-bottom border-primary">
+                <h5 class=""> {{review.user.name}} </h5>
+                    <div class="row">
+                        <div class="col">
+                            <p style="color:#6610f2;"> {{review.textReview}} </p>
+                            <p>Оценка: {{review.rating}} </p>
+                        </div>
+                        <div class="col-6">
+                            <p> {{review.dateAdd ? review.dateAdd|date('Y-m-d H:i:s') : ''}} </p>
+                        </div>
+                     </div>
+                
+            </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
